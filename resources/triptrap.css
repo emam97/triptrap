@@ -1,0 +1,12 @@
+body{
+  text-align: center;
+  margin-top: 20%;
+  font-family: 'Roboto', sans-serif;
+  background-image: url('/images/background.jpg');
+}
+a:link{
+  text-decoration: none;
+}
+h1{
+  font-size: 1000%;
+}

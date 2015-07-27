@@ -23,10 +23,11 @@ import logging
 
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
-            self.response.write('<html><body><h1>TripTrap<br></h1></body></html>')
             greeting = ('<a href="%s">Sign in with Google</a>' %
                 users.create_login_url('/main'))
-            self.response.write('<html><body>%s</body></html>' % greeting)
+            template_vars = { 'greeting' :  greeting }
+            template = jinja2_environment.get_template('template/triptrap.html')
+            self.response.write(template.render(template_vars))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):

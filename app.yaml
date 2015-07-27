@@ -8,6 +8,11 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+- url: /resources/triptrap\.css
+  static_files: resources/triptrap.css
+  upload: resources/triptrap\.css
+- url: /images
+  static_dir: images
 
 - url: .*
   script: main.app
