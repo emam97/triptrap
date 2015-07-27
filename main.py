@@ -23,20 +23,22 @@ import logging
 
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
-        user = users.get_current_user()
-        greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
-            (user.nickname(), users.create_logout_url('/main')))
-        self.response.write('<html><body>%s</body></html>' % greeting)
+            self.response.write('<html><body><h1>TripTrap<br></h1></body></html>')
+            greeting = ('<a href="%s">Sign in with Google</a>' %
+                users.create_login_url('/main'))
+            self.response.write('<html><body>%s</body></html>' % greeting)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-            self.response.write('<html><body><h1>TripTrap<br></h1></body></html>')
-            greeting = ('<a href="%s">Sign in with Google</a>' %
-                        users.create_login_url('/'))
+        user = users.get_current_user()
+        greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
+            (user.nickname(), users.create_logout_url('/')))
+        self.response.write('<html><body>%s</body></html>' % greeting)
 
 jinja2_environment = jinja2.Environment(loader=
 jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', LoginHanlder),
+    ('/main', MainHandler)
 ], debug=True)
