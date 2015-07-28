@@ -39,7 +39,8 @@ class EventfulHandler(webapp2.RequestHandler):
         #    print(result)
         #except urllib2.URLError, e:
         #    handleError(e)
-        r=urllib2.urlopen("http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=47.6097,122.3331&within=25")
+        url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=47.6097,122.3331&within=25"
+        r=urllib2.urlopen( url )
         s= r.read()
         d= json.loads(s)
         for x in d["events"]["event"]:
