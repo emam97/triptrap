@@ -20,6 +20,14 @@ import jinja2
 import os
 import datetime
 import logging
+import urllib2
+import json
+from google.appengine.ext import ndb
+
+class Location(ndb.Model):
+    latitude = ndb.FloatProperty()
+    longitude = ndb.FloatProperty()
+    created = ndb.DateTimeProperty()
 
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
@@ -29,6 +37,8 @@ class LoginHanlder(webapp2.RequestHandler):
             template = jinja2_environment.get_template('template/triptrap.html')
             self.response.write(template.render(template_vars))
 
+
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -36,10 +46,30 @@ class MainHandler(webapp2.RequestHandler):
             (user.nickname(), users.create_logout_url('/')))
         self.response.write('<html><body>%s</body></html>' % greeting)
 
-jinja2_environment = jinja2.Environment(loader=
-jinja2.FileSystemLoader(os.path.dirname(__file__)))
+class LocationHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja2_enviroment.get_template("templates/places.html")
+        lat = self.request.get('lat')
+        lon = self.request.get('lon')
+        url = ('http://api.openweathermap.org/data/2.5/weather?'
+        'lat=%s&lon=%s&units=Imperial&APPID=883c191fd8d3d4a18ed700f5f65dcfd4' % (lat, lon))
+        string = urllib2.urlopen(url).read()
+        dictionary = json.loads(string)
+        # logging.info(dictionary)
+        if lat == "" or lon == "":
+            form = True
+        else:
+            form = False
+            loc = Location(latitude=float(lat), longitude=float(lon),
+                created=datetime.datetime.now())
+            loc.put()
+        self.response.write(template.render())
 
 app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
-    ('/main', MainHandler)
+    ('/main', MainHandler),
+    ('/location', LocationHandler)
 ], debug=True)
+
+jinja2_environment = jinja2.Environment(loader=
+jinja2.FileSystemLoader(os.path.dirname(__file__)))
