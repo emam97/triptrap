@@ -33,17 +33,17 @@ class Location(ndb.Model):
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
-        url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25"
-        try:
-            result= urllib2.urlopen(url)
-            print(result)
-        except urllib2.URLError, e:
-            handleError(e)
-        #r=urllib2.urlopen("http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25")
-        #s= r.read()
-        #d= json.loads(s)
-        #for x in d["events"]["event"]:
-        #    print x["title"].encode("utf-8")
+        #url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25"
+        #try:
+        #    result= urllib2.urlopen(url)
+        #    print(result)
+        #except urllib2.URLError, e:
+        #    handleError(e)
+        r=urllib2.urlopen("http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=47.6097,122.3331&within=25")
+        s= r.read()
+        d= json.loads(s)
+        for x in d["events"]["event"]:
+            self.response.write(x["title"].encode("utf-8"))
 
 
 class LoginHanlder(webapp2.RequestHandler):
@@ -85,7 +85,7 @@ class LocationHandler(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
     ('/main', MainHandler),
-    ('/eventful', EventfulHandler)
+    ('/eventful', EventfulHandler),
     ('/location', LocationHandler)
 ], debug=True)
 
