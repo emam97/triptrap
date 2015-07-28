@@ -1,4 +1,4 @@
-application: triptrap-1019
+application: triptrap
 version: 1
 runtime: python27
 api_version: 1
@@ -8,9 +8,15 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
+
+- url: /resources/places\.js
+  static_files: resources/places.js
+  upload: resources/places\.js
+
 - url: /resources/triptrap\.css
   static_files: resources/triptrap.css
   upload: resources/triptrap\.css
+
 - url: /images
   static_dir: images
 
@@ -18,7 +24,8 @@ handlers:
   script: main.app
 
 libraries:
-- name: webapp2
-  version: "2.5.2"
 - name: jinja2
   version: latest
+
+- name: webapp2
+  version: "2.5.2"
