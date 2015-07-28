@@ -33,20 +33,22 @@ class Location(ndb.Model):
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
-        #url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25"
-        #try:
-        #    result= urllib2.urlopen(url)
-        #    print(result)
-        #except urllib2.URLError, e:
-        #    handleError(e)
-        url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=47.6097,122.3331&within=25"
+        url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=47.61,-122.33&within=25"
         r=urllib2.urlopen( url )
         s= r.read()
         d= json.loads(s)
         for x in d["events"]["event"]:
             self.response.write(x["title"].encode("utf-8"))
-
-
+            self.response.write(" ")
+            self.response.write(x["venue_address"])
+            self.response.write(", ")
+            self.response.write(x["city_name"])
+            self.response.write(", ")
+            self.response.write(x["region_name"])
+            self.response.write(", ")
+            self.response.write(x["country_name"])
+            self.response.write('</br>')
+            
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
             greeting = ('<a href="%s">Sign in with Google</a>' %
