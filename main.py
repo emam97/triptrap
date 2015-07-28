@@ -50,23 +50,25 @@ class EventfulHandler(webapp2.RequestHandler):
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
             greeting = ('<a href="%s">Sign in with Google</a>' %
-                users.create_login_url('/main'))
+                users.create_login_url('/location'))
             template_vars = { 'greeting' :  greeting }
-            template = jinja2_environment.get_template('template/triptrap.html')
+            template = jinja2_environment.get_template('templates/triptrap.html')
             self.response.write(template.render(template_vars))
 
 
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        query = Location.query()
+        data = query.fetch()
+
+class LocationHandler(webapp2.RequestHandler):
+    def get(self):
         user = users.get_current_user()
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
             (user.nickname(), users.create_logout_url('/')))
         self.response.write('<html><body>%s</body></html>' % greeting)
-
-class LocationHandler(webapp2.RequestHandler):
-    def get(self):
-        template = jinja2_enviroment.get_template("templates/places.html")
+        template = jinja2_environment.get_template("templates/places.html")
         lat = self.request.get('lat')
         lon = self.request.get('lon')
         url = ('http://api.openweathermap.org/data/2.5/weather?'
@@ -83,12 +85,12 @@ class LocationHandler(webapp2.RequestHandler):
             loc.put()
         self.response.write(template.render())
 
+jinja2_environment = jinja2.Environment(loader=
+jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
 app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
     ('/main', MainHandler),
     ('/eventful', EventfulHandler),
     ('/location', LocationHandler)
 ], debug=True)
-
-jinja2_environment = jinja2.Environment(loader=
-jinja2.FileSystemLoader(os.path.dirname(__file__)))
