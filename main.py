@@ -24,10 +24,27 @@ import urllib2
 import json
 from google.appengine.ext import ndb
 
+
+
 class Location(ndb.Model):
     latitude = ndb.FloatProperty()
     longitude = ndb.FloatProperty()
     created = ndb.DateTimeProperty()
+
+class EventfulHandler(webapp2.RequestHandler):
+    def get(self):
+        url = "http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25"
+        try:
+            result= urllib2.urlopen(url)
+            print(result)
+        except urllib2.URLError, e:
+            handleError(e)
+        #r=urllib2.urlopen("http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=32.746682,-117.162741&within=25")
+        #s= r.read()
+        #d= json.loads(s)
+        #for x in d["events"]["event"]:
+        #    print x["title"].encode("utf-8")
+
 
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
@@ -73,5 +90,6 @@ jinja2.FileSystemLoader(os.path.dirname(__file__)))
 app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
     ('/main', MainHandler),
+    ('/eventful', EventfulHandler)
     ('/location', LocationHandler)
 ], debug=True)
