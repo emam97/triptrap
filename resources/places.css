@@ -1,0 +1,16 @@
+html, body, #map-canvas {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
+}
+
+div {
+    cursor: pointer;
+    display: block;
+    float: right;
+    z-index: 99999;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
