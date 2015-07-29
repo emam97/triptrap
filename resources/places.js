@@ -2,6 +2,7 @@ var map;
 var infowindow;
 var lat;
 var lon;
+var url;
 window.onload = function() {
   var startPos;
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -12,6 +13,9 @@ window.onload = function() {
     startPos = position;
     lat = startPos.coords.latitude;
     lon = startPos.coords.longitude;
+    url = "/eventful?lat="+lat+"lon="+lon;
+    console.log(url);
+    $("a").attr('href',url);
     initialize();
   };
   navigator.geolocation.getCurrentPosition(geoSuccess);
