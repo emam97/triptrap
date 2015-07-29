@@ -1,11 +1,11 @@
-html, body, #map-canvas {
+/*html, body, #map-canvas {
   height: 100%;
   margin: 0;
   padding: 0;
   z-index: 1;
-}
+}*/
 
-div {
+/*#map-canvas {
     cursor: pointer;
     display: block;
     float: right;
@@ -13,4 +13,23 @@ div {
     position: absolute;
     right: 5px;
     top: 5px;
+}*/
+
+
+.FixedHeightContainer{
+  float:right;
+  height: 250px;
+  width: 250px;
+  padding: 3px;
+}
+
+.infobox{
+  margin:30px;
+  background-color: #ffffff;
+  opacity:0.6;
+  filter:alpha(opacity=60);
+}
+
+#map-canvas{
+  border: 2px solid black;
 }

@@ -9,21 +9,24 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /resources/places\.js
-  static_files: resources/places.js
-  upload: resources/places\.js
+# - url: /resources/places\.js
+#   static_files: resources/places.js
+#   upload: resources/places\.js
+#
+# - url: /resources/triptrap\.css
+#   static_files: resources/triptrap.css
+#   upload: resources/triptrap\.css
+#
+# - url: /resources/places\.css
+#   static_files: resources/places.css
+#   upload: resources/places\.css
 
-- url: /resources/triptrap\.css
-  static_files: resources/triptrap.css
-  upload: resources/triptrap\.css
-
-- url: /resources/places\.css
-  static_files: resources/places.css
-  upload: resources/places\.css
+- url: /resources
+  static_dir: resources
 
 - url: /images
   static_dir: images
-  
+
 - url: .*
   script: main.app
 

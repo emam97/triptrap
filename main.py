@@ -29,7 +29,6 @@ import sys
 import urllib
 import oauth2
 
-<<<<<<< HEAD
 API_HOST = 'api.yelp.com'
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'Atlanta, GA'
@@ -165,9 +164,9 @@ class MainHandler(webapp2.RequestHandler):
         user = users.get_current_user()
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
             (user.nickname(), users.create_logout_url('/')))
-        self.response.write('<html><body>%s</body></html>' % greeting)
+        template_vars = { 'greeting' : greeting }
         template = jinja2_environment.get_template("templates/places.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 jinja2_environment = jinja2.Environment(loader=
 jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -176,6 +175,5 @@ app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
     ('/main', MainHandler),
     ('/eventful', EventfulHandler),
-    ('/location', LocationHandler),
     ('/yelp', YelpHandler)
 ], debug=True)

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Place searches</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+    </style>
+
+<script>
+var lat;
+var lon;
+window.onload = function() {
+  var startPos;
+  var geoSuccess = function(position) {
+    startPos = position;
+    lat = startPos.coords.latitude;
+    lon = startPos.coords.longitude;
+    initialize();
+  };
+  navigator.geolocation.getCurrentPosition(geoSuccess);
+};
+</script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script type="text/javascript" src ="resources/places.js"></script>
+    <link rel="stylesheet" type= "text/css" href="resources/places.css"></link>
+  </head>
+  <body>
+    <div class="FixedHeightContainer">
+      <div class="infobox">
+        {{ greeting }}
+        <div id="yelp">
+          Yelp results
+        </div>
+        <div id="eventful">
+        Eventful results
+        </div>
+      </div>
+    </div>
+    <div id="map-canvas"></div>
+  </body>
+</html>
