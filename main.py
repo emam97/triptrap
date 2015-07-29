@@ -32,7 +32,7 @@ import oauth2
 API_HOST = 'api.yelp.com'
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'Atlanta, GA'
-SEARCH_LIMIT = 4
+SEARCH_LIMIT = 6
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 
@@ -104,11 +104,19 @@ class YelpHandler(webapp2.RequestHandler):
         result = response['businesses'][0]
         name = result['name']
         url = result['url']
-        address = result['location']
+        address = result['location']['display_address'][0]
+        city = result['location']['neighborhoods'][0]
+        state = result['location']['state_code']
         categories = result['categories']
-        template_var = { 'value1' : name, 'value2' : url,
-        'value3' : address, 'value4' : categories
+        template_var = {
+        'value1' : name,
+        'value2' : url,
+        'value3' : address,
+        'value4' : city,
+        'value5' : state,
+        'value6' : categories,
         }
+        logging.info (template_var)
         self.response.write(template.render(template_var))
 
 class Location(ndb.Model):
@@ -156,8 +164,6 @@ class LoginHanlder(webapp2.RequestHandler):
             template_vars = { 'greeting' :  greeting }
             template = jinja2_environment.get_template('template/triptrap.html')
             self.response.write(template.render(template_vars))
-
-
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
