@@ -104,17 +104,16 @@ class YelpHandler(webapp2.RequestHandler):
         response = search('dinner', loc)
         for i in range(0, len(response)):
             a = response['businesses'][i]
-            logging.info(a)
             name = a['name']
             url = a['url']
             address = a['location']['display_address'][0]
             city = a['location']['display_address'][1]
             state = a['location']['display_address'][2]
-            categories = a['categories']
-            i += 1
+            categories = a['categories'][0]
             for b in range (0, len(categories)):
-                types = a['categories'][b]
+                types = a['categories'][0][b]
                 b += 1
+            i += 1
         template_var = {
         'value1' : name,
         'value2' : url,
