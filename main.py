@@ -29,6 +29,7 @@ import sys
 import urllib
 import oauth2
 
+<<<<<<< HEAD
 API_HOST = 'api.yelp.com'
 DEFAULT_TERM = 'dinner'
 DEFAULT_LOCATION = 'Atlanta, GA'
@@ -145,12 +146,14 @@ class EventfulHandler(webapp2.RequestHandler):
             self.response.write(", ")
             self.response.write(x["country_name"])
             self.response.write('</br>')
+
         self.response.write(template.render())
+
 
 class LoginHanlder(webapp2.RequestHandler):
     def get(self):
             greeting = ('<a href="%s">Sign in with Google</a>' %
-                users.create_login_url('/location'))
+                users.create_login_url('/main'))
             template_vars = { 'greeting' :  greeting }
             template = jinja2_environment.get_template('templates/triptrap.html')
             self.response.write(template.render(template_vars))
@@ -159,30 +162,11 @@ class LoginHanlder(webapp2.RequestHandler):
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        query = Location.query()
-        data = query.fetch()
-
-class LocationHandler(webapp2.RequestHandler):
-    def get(self):
         user = users.get_current_user()
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
             (user.nickname(), users.create_logout_url('/')))
         self.response.write('<html><body>%s</body></html>' % greeting)
         template = jinja2_environment.get_template("templates/places.html")
-        lat = self.request.get('lat')
-        lon = self.request.get('lon')
-        url = ('http://api.openweathermap.org/data/2.5/weather?'
-        'lat=%s&lon=%s&units=Imperial&APPID=883c191fd8d3d4a18ed700f5f65dcfd4' % (lat, lon))
-        string = urllib2.urlopen(url).read()
-        dictionary = json.loads(string)
-        # logging.info(dictionary)
-        if lat == "" or lon == "":
-            form = True
-        else:
-            form = False
-            loc = Location(latitude=float(lat), longitude=float(lon),
-                created=datetime.datetime.now())
-            loc.put()
         self.response.write(template.render())
 
 jinja2_environment = jinja2.Environment(loader=

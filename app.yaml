@@ -17,6 +17,10 @@ handlers:
   static_files: resources/triptrap.css
   upload: resources/triptrap\.css
 
+- url: /resources/places\.css
+  static_files: resources/places.css
+  upload: resources/places\.css
+
 - url: /images
   static_dir: images
   
