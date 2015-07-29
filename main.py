@@ -115,15 +115,10 @@ class Restraunt(ndb.Model):
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('template/yelp.html')
-
-        loc = '47.6490109000000,-122.3504295'
-        response = search('dinner', loc)
         rlist = []
-
         ll = self.request.get('lat')
         logging.info(ll)
         response = search('dinner', ll)
-
         for i in range(0, len(response)):
             r = Restraunt()
             a = response['businesses'][i]
