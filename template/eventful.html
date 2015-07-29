@@ -5,15 +5,15 @@
 <body>
 
   <script>
-  window.onload = function() {
-    var startPos;
-    var geoSuccess = function(position) {
-      startPos = position;
-      document.getElementById('latitude').value = startPos.coords.latitude;
-      document.getElementById('longitude').value = startPos.coords.longitude;
-    };
-    navigator.geolocation.getCurrentPosition(geoSuccess);
-  };
+  // window.onload = function() {
+  //   var startPos;
+  //   var geoSuccess = function(position) {
+  //     startPos = position;
+  //     document.getElementById('latitude').value = startPos.coords.latitude;
+  //     document.getElementById('longitude').value = startPos.coords.longitude;
+  //   };
+  //   navigator.geolocation.getCurrentPosition(geoSuccess);
+  // };
 </script>
 {% if form %}
 <form action='/' method = "GET">
