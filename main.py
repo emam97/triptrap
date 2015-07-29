@@ -99,7 +99,7 @@ def search(term, location):
 
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('templates/yelp.html')
+        template = jinja2_environment.get_template('template/yelp.html')
         response = search('diner', 'Atlanta')
         result = response['businesses'][0]
         name = result['name']
@@ -118,7 +118,7 @@ class Location(ndb.Model):
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('templates/eventful.html')
+        template = jinja2_environment.get_template('template/eventful.html')
         lat = self.request.get('lat')
         lon = self.request.get('lon')
         url = ('http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=%s,%s&within=25' % (lat,lon))
@@ -154,7 +154,7 @@ class LoginHanlder(webapp2.RequestHandler):
             greeting = ('<a href="%s">Sign in with Google</a>' %
                 users.create_login_url('/main'))
             template_vars = { 'greeting' :  greeting }
-            template = jinja2_environment.get_template('templates/triptrap.html')
+            template = jinja2_environment.get_template('template/triptrap.html')
             self.response.write(template.render(template_vars))
 
 
@@ -165,7 +165,7 @@ class MainHandler(webapp2.RequestHandler):
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
             (user.nickname(), users.create_logout_url('/')))
         template_vars = { 'greeting' : greeting }
-        template = jinja2_environment.get_template("templates/places.html")
+        template = jinja2_environment.get_template("template/places.html")
         self.response.write(template.render(template_vars))
 
 jinja2_environment = jinja2.Environment(loader=
