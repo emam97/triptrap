@@ -6,9 +6,12 @@
 
 <h2> Yelp Results </h2>
 
-<ul>
+<ul> {% for i in range (0, 10)%}
   <li> {{ value1 }} </li>
   <li> {{ value2 }} </li>
   <li> {{ value3 }}, {{ value4 }}, {{ value5 }} </li>
-  <li> {{ value6 }} </li>
+    {% for b in range (0, 3)%}
+    <li> {{ value6 }} </li>
+    {% endfor %}
+  {% endfor %}
 </ul>

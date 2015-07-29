@@ -100,23 +100,28 @@ def search(term, location):
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('template/yelp.html')
-        response = search('diner', 'Atlanta')
-        result = response['businesses'][0]
-        name = result['name']
-        url = result['url']
-        address = result['location']['display_address'][0]
-        city = result['location']['neighborhoods'][0]
-        state = result['location']['state_code']
-        categories = result['categories']
+        response = search('dinner', a)
+        for i in range(0, len(response)):
+            a = response['businesses'][i]
+            logging.info(a)
+            name = a['name']
+            url = a['url']
+            address = a['location']['display_address'][0]
+            city = a['location']['display_address'][1]
+            state = a['location']['display_address'][2]
+            categories = a['categories']
+            i += 1
+            for b in range (0, len(categories)):
+                types = a['categories'][b]
+                b += 1
         template_var = {
         'value1' : name,
         'value2' : url,
         'value3' : address,
         'value4' : city,
         'value5' : state,
-        'value6' : categories,
+        'value6' : types
         }
-        logging.info (template_var)
         self.response.write(template.render(template_var))
 
 class Location(ndb.Model):
