@@ -81,7 +81,7 @@ def request(host, path, url_params=None):
     finally:
         conn.close()
     return response
-def search(term, location):
+def search(term, ll):
     """Query the Search API by a search term and location.
     Args:
         term (str): The search term passed to the API.
@@ -92,7 +92,7 @@ def search(term, location):
 
     url_params = {
         'term': term.replace(' ', '+'),
-        'location': location.replace(' ', '+'),
+        'll': ll.replace(' ', '+'),
         'limit': SEARCH_LIMIT
     }
     return request(API_HOST, SEARCH_PATH, url_params=url_params)
@@ -100,7 +100,8 @@ def search(term, location):
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('template/yelp.html')
-        response = search('dinner', a)
+        loc = lat + "," + lon
+        response = search('dinner', loc)
         for i in range(0, len(response)):
             a = response['businesses'][i]
             logging.info(a)
@@ -124,10 +125,10 @@ class YelpHandler(webapp2.RequestHandler):
         }
         self.response.write(template.render(template_var))
 
-class Location(ndb.Model):
-    latitude = ndb.FloatProperty()
-    longitude = ndb.FloatProperty()
-    created = ndb.DateTimeProperty()
+# class Location(ndb.Model):
+#     latitude = ndb.FloatProperty()
+#     longitude = ndb.FloatProperty()
+#     created = ndb.DateTimeProperty()
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
@@ -138,15 +139,15 @@ class EventfulHandler(webapp2.RequestHandler):
         r=urllib2.urlopen( url )
         s= r.read()
         d= json.loads(s)
-        logging.info(lat)
-        logging.info(lon)
-        if lat == "" or lon == "":
-            form = True
-        else:
-            form = False
-            loc = Location(latitude = float(lat), longitude=float(lon),
-            created=datetime.datetime.now())
-            loc.put()
+        # logging.info(lat)
+        # logging.info(lon)
+        # if lat == "" or lon == "":
+        #     form = True
+        # else:
+        #     form = False
+        #     loc = Location(latitude = float(lat), longitude=float(lon),
+        #     created=datetime.datetime.now())
+        #     loc.put()
         for x in d["events"]["event"]:
             self.response.write(x["title"].encode("utf-8"))
             self.response.write(", ")
