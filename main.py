@@ -97,31 +97,38 @@ def search(term, ll):
     }
     return request(API_HOST, SEARCH_PATH, url_params=url_params)
 
+class Restraunt(ndb.Model):
+    name = ndb.StringProperty()
+    url = ndb.StringProperty()
+    address = ndb.StringProperty()
+    city = ndb.StringProperty()
+    state = ndb.StringProperty()
+    categories = ndb.StringProperty(repeated=True)
+    types = ndb.StringProperty()
+
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('template/yelp.html')
-        loc = lat + "," + lon
+        loc = '47.6490109000000,-122.3504295'
         response = search('dinner', loc)
+        rlist = []
         for i in range(0, len(response)):
+            r = Restraunt()
             a = response['businesses'][i]
-            name = a['name']
-            url = a['url']
-            address = a['location']['display_address'][0]
-            city = a['location']['display_address'][1]
-            state = a['location']['display_address'][2]
-            categories = a['categories'][0]
-            for b in range (0, len(categories)):
-                types = a['categories'][0][b]
-                b += 1
-            i += 1
+            r.name = a['name']
+            r.url = a['url']
+            r.address = a['location']['display_address'][0]
+            r.city = a['location']['display_address'][1]
+            r.state = a['location']['display_address'][2]
+            r.categories = a['categories'][0]
+            logging.info(a['categories'][0])
+            for b in range (0, len(r.categories)):
+                r.types = a['categories'][0][b]
+                break
+            rlist.append(r)
         template_var = {
-        'value1' : name,
-        'value2' : url,
-        'value3' : address,
-        'value4' : city,
-        'value5' : state,
-        'value6' : types
-        }
+        'restruants' : rlist
+         }
         self.response.write(template.render(template_var))
 
 # class Location(ndb.Model):

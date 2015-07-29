@@ -5,13 +5,10 @@
 </form>
 
 <h2> Yelp Results </h2>
-
-<ul> {% for i in range (0, 10)%}
-  <li> {{ value1 }} </li>
-  <li> {{ value2 }} </li>
-  <li> {{ value3 }}, {{ value4 }}, {{ value5 }} </li>
-    {% for b in range (0, 3)%}
-    <li> {{ value6 }} </li>
-    {% endfor %}
+<ul> {% for restruant in restruants%}
+  <br/><li> {{ restruant.name }} </li>
+  <li> {{ restruant.url }} </li>
+  <li> {{ restruant.address }}, {{ restruant.city }}, {{ restruant.state }} </li>
+  <li>{{ restruant.types }}</li>
   {% endfor %}
 </ul>
