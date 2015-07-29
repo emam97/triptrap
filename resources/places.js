@@ -3,6 +3,7 @@ var infowindow;
 var lat;
 var lon;
 var url;
+var url1;
 window.onload = function() {
   var startPos;
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -15,7 +16,10 @@ window.onload = function() {
     lon = startPos.coords.longitude;
     url = "/eventful?lat="+lat+"lon="+lon;
     console.log(url);
-    $("a").attr('href',url);
+    $("#eventful").attr('href',url);
+    url1 = "/yelp?lat="+lat+","+lon;
+    console.log(url1);
+    $("#yelp").attr('href',url1);
     initialize();
   };
   navigator.geolocation.getCurrentPosition(geoSuccess);

@@ -89,12 +89,12 @@ def search(term, ll):
     Returns:
         dict: The JSON response from the request.
     """
-
     url_params = {
         'term': term.replace(' ', '+'),
-        'll': ll.replace(' ', '+'),
+        'll': ll.replace( ' ', ' , '),
         'limit': SEARCH_LIMIT
     }
+    print url_params
     return request(API_HOST, SEARCH_PATH, url_params=url_params)
 
 class Restraunt(ndb.Model):
@@ -106,12 +106,24 @@ class Restraunt(ndb.Model):
     categories = ndb.StringProperty(repeated=True)
     types = ndb.StringProperty()
 
+# class Location(ndb.Model):
+#     latitude = ndb.FloatProperty()
+#     longitude = ndb.FloatProperty()
+#     created = ndb.DateTimeProperty()
+
+
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja2_environment.get_template('template/yelp.html')
+
         loc = '47.6490109000000,-122.3504295'
         response = search('dinner', loc)
         rlist = []
+
+        ll = self.request.get('lat')
+        logging.info(ll)
+        response = search('dinner', ll)
+
         for i in range(0, len(response)):
             r = Restraunt()
             a = response['businesses'][i]
@@ -131,10 +143,6 @@ class YelpHandler(webapp2.RequestHandler):
          }
         self.response.write(template.render(template_var))
 
-# class Location(ndb.Model):
-#     latitude = ndb.FloatProperty()
-#     longitude = ndb.FloatProperty()
-#     created = ndb.DateTimeProperty()
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
