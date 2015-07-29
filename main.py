@@ -114,7 +114,7 @@ class Restraunt(ndb.Model):
 
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('template/yelp.html')
+        template = jinja2_environment.get_template('template/places.html')
         rlist = []
         ll = self.request.get('lat')
         logging.info(ll)
@@ -128,48 +128,46 @@ class YelpHandler(webapp2.RequestHandler):
             r.city = a['location']['display_address'][1]
             r.state = a['location']['display_address'][2]
             r.categories = a['categories'][0]
-            logging.info(a['categories'][0])
             for b in range (0, len(r.categories)):
                 r.types = a['categories'][0][b]
                 break
             rlist.append(r)
         template_var = {
-        'restruants' : rlist
+        'restraunts' : rlist
          }
         self.response.write(template.render(template_var))
+
+class Event(ndb.Model):
+    title = ndb.StringProperty()
+    venue = ndb.StringProperty()
+    city = ndb.StringProperty()
+    region = ndb.StringProperty()
+    country = ndb.StringProperty()
 
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('template/eventful.html')
+        template = jinja2_environment.get_template('template/places.html')
         lat = self.request.get('lat')
         lon = self.request.get('lon')
-        url = ('http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=%s,%s&within=25' % (lat,lon))
+        url = ('http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=%s,%s&within=5-' % (lat,lon))
         r=urllib2.urlopen( url )
         s= r.read()
         d= json.loads(s)
-        # logging.info(lat)
-        # logging.info(lon)
-        # if lat == "" or lon == "":
-        #     form = True
-        # else:
-        #     form = False
-        #     loc = Location(latitude = float(lat), longitude=float(lon),
-        #     created=datetime.datetime.now())
-        #     loc.put()
-        for x in d["events"]["event"]:
-            self.response.write(x["title"].encode("utf-8"))
-            self.response.write(", ")
-            self.response.write(x["venue_address"])
-            self.response.write(", ")
-            self.response.write(x["city_name"])
-            self.response.write(", ")
-            self.response.write(x["region_name"])
-            self.response.write(", ")
-            self.response.write(x["country_name"])
-            self.response.write('</br>')
-
-        self.response.write(template.render())
+        elist = []
+        x = d["events"]["event"]
+        for a in range( 0, len(x)):
+            e = Event()
+            e.title = x[a]['title']
+            e.venue = x[a]['venue_name']
+            e.city = x[a]['city_name']
+            e.country = x[a]['country_abbr']
+            e.url = x[a]['url']
+            elist.append(e)
+        template_vars = {
+        'events' : elist
+         }
+        self.response.write(template.render(template_vars))
 
 
 class LoginHanlder(webapp2.RequestHandler):

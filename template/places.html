@@ -42,7 +42,21 @@
       <div class="infobox">
         {{ greeting }}
           <a id= "yelp"> <button type = "button" name="Yelp Results">Yelp</button></a>
+          <ul> {% for restraunt in restraunts%}
+            <br/><li> {{ restraunt.name }} </li>
+            <li> {{ restraunt.url }} </li>
+            <li> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </li>
+            <li>{{ restraunt.types }}</li>
+            {% endfor %}
+          </ul>
         <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
+        <ul> {% for event in events %}
+          <li> {{ event.title }} </li>
+          <li> {{ event.venue }} </li>
+          <li> {{ event.city }}, {{ event.region }}, {{ event.country }} </li>
+          <li> {{ event.url }} </li>
+          {% endfor %}
+        </ul>
       </div>
     </div>
     <div id="map-canvas"></div>
