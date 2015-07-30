@@ -8,6 +8,8 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src ="resources/directions.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 
   </head>
   <body>
@@ -23,7 +25,8 @@
     </div>
     <div class="FixedHeightContainer">
       <div class="infobox">
-        {{ greeting }}
+        {{ greeting }}<br/>
+        See your itinerary <a href="/itinerary">here</a>
         <a id= "yelp" href= ""></a>
         <form action="/yelp" method="GET">
           <div> What are you looking for?
@@ -33,10 +36,18 @@
           <input type="submit" value="Search"/>
         </form>
           <h1> {% for restraunt in restraunts%} </h1>
+          <form action="/itinerary/create" method="POST">
+            <input type="time" name="clock" value= ""/><br/>
+            <input type="date" name="calendar" value= ""/><br/>
+            <input type="text" name="what" value= "What are you going to do?"/>
+            <input type="hidden" name="where" value= "{{ restraunt.url }}"></input>
+            <button type="submit" value="Add to Itinerary">Add to Itinerary</button>
+          </form>
             <h3> {{ restraunt.name }} </h3>
             <a href= {{ restraunt.url }} > {{ restraunt.url }} </a>
             <div> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </div>
             <div>{{ restraunt.types }}</div>
+            <div class="g-plus" data-action="share" data-href= {{ restraunt.url }} ></div>
             <div><a id="locationlat">{{ restraunt.latitude }}</a>
               <a id="locationlon">{{ restraunt.longitude }}</a>
               <button id="locbutton" onclick="destination()">Find Directions!</button>
@@ -45,9 +56,11 @@
         <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
         <h1> {% for event in events %} </h1>
           <h3> {{ event.title }} </h3>
+          <a href= {{ event.url }} > {{ event.url }} </a>
           <div> {{ event.venue }} </div>
           <div> {{ event.city }}, {{ event.region }}, {{ event.country }} </div>
-          <a href= {{ event.url }} > {{ event.url }} </a>
+          <div class="g-plus" data-action="share"
+            data-href= {{ event.url }} ></div>
           {% endfor %}
       </div>
     </div>
