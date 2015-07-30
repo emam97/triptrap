@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+</head>
+
+
+<body>
+  <h1>Today's Itinerary</h1>
+    {% for event in events %}
+    What are we doing? {{ event.thing }} <br/>
+    When? {{ event.when}}
+    <br/>
+    <a href = {{ event.url }}> {{ event.url }} </a>
+    <br/>
+    created on {{ event.created_date }}
+    <br/>
+    {% endfor %}
+    <br/>
+</body>
+
+
+</html>

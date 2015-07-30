@@ -19,6 +19,7 @@ import webapp2
 import jinja2
 import os
 import datetime
+from datetime import datetime as datetime2
 import logging
 import urllib2
 import json
@@ -28,6 +29,8 @@ import pprint
 import sys
 import urllib
 import oauth2
+import time
+
 
 API_HOST = 'api.yelp.com'
 DEFAULT_TERM = 'dinner'
@@ -188,6 +191,36 @@ class LoginHanlder(webapp2.RequestHandler):
             template = jinja2_environment.get_template('template/triptrap.html')
             self.response.write(template.render(template_vars))
 
+class Itinerary(ndb.Model):
+    when = ndb.DateTimeProperty(required=True)
+    thing = ndb.StringProperty(required=True)
+    url = ndb.StringProperty(required=True)
+    created_date = ndb.DateTimeProperty(required=True)
+
+class ItineraryHandler(webapp2.RequestHandler):
+    def get(self):
+        query = Itinerary.query()
+        itinerary_data = query.fetch()
+        logging.info(itinerary_data)
+        template_vars = {"events" : itinerary_data}
+        template = jinja2_environment.get_template("template/itinerary.html")
+        self.response.write(template.render(template_vars))
+
+class ItineraryCreateHandler(webapp2.RequestHandler):
+    def post(self):
+        when1 = self.request.get('clock')
+        when2 = self.request.get('calendar')
+        thing = self.request.get('what')
+        url = self.request.get('where')
+        modtime = time.strptime(when1+" "+when2 , "%H:%M %Y-%m-%d")
+        dt = datetime2.fromtimestamp(time.mktime(modtime))
+        current_date = datetime2.now()
+        event = Itinerary (thing=thing, when=dt, url=url)
+        event.created_date = current_date
+        event.put()
+        self.response.write('Added to Itinerary')
+        self.response.write('<br/><a href="/main">Go Back</a>')
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
@@ -203,6 +236,8 @@ jinja2.FileSystemLoader(os.path.dirname(__file__)))
 app = webapp2.WSGIApplication([
     ('/', LoginHanlder),
     ('/main', MainHandler),
+    ('/itinerary/create', ItineraryCreateHandler),
+    ('/itinerary', ItineraryHandler),
     ('/eventful', EventfulHandler),
     ('/yelp', YelpHandler)
 ], debug=True)
