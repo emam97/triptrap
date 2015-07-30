@@ -128,6 +128,8 @@ class YelpHandler(webapp2.RequestHandler):
             r.city = a['location']['display_address'][1]
             r.state = a['location']['display_address'][2]
             r.categories = a['categories'][0]
+            r.latitude = response['region']['center']['latitude']
+            r.longitude = response['region']['center']['longitude']
             for b in range (0, len(r.categories)):
                 r.types = a['categories'][0][b]
                 break
