@@ -20,13 +20,13 @@ window.onload = function() {
     url1 = "/yelp?lat="+lat+","+lon;
     console.log(url1);
     $("#yelp").attr('href',url1);
-    initialize();
+    initialize(lat,lon);
   };
   navigator.geolocation.getCurrentPosition(geoSuccess);
 };
 
 
-function initialize() {
+function initialize(lat,lon) {
   var pyrmont = new google.maps.LatLng(lat, lon);
 
     map.panTo(pyrmont);

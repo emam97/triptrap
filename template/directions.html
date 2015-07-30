@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Travel modes in directions</title>
+    <link rel="stylesheet" type= "text/css" href="resources/directions.css"></link>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src ="resources/directions.js"></script>
+
+  </head>
+  <body>
+    <div id="panel">
+    <b>Mode of Travel: </b>
+    <select id="mode" onchange="calcRoute();">
+      <option value="initial"></option>
+      <option value="DRIVING">Driving</option>
+      <option value="WALKING">Walking</option>
+      <option value="BICYCLING">Bicycling</option>
+      <option value="TRANSIT">Transit</option>
+    </select>
+    </div>
+    <div class="FixedHeightContainer">
+      <div class="infobox">
+        {{ greeting }}
+          <a id= "yelp"> <button type = "button" name="Yelp Results">Yelp</button></a>
+        <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
+      </div>
+    </div>
+    <div id="map-canvas"></div>
+  </body>
+</html>

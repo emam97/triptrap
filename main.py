@@ -186,7 +186,7 @@ class MainHandler(webapp2.RequestHandler):
         greeting = ('Welcome, %s! (<a href="%s">sign out</a>)' %
             (user.nickname(), users.create_logout_url('/')))
         template_vars = { 'greeting' : greeting }
-        template = jinja2_environment.get_template("template/places.html")
+        template = jinja2_environment.get_template("template/directions.html")
         self.response.write(template.render(template_vars))
 
 jinja2_environment = jinja2.Environment(loader=
