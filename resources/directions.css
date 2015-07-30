@@ -1,8 +1,9 @@
 .FixedHeightContainer{
   float:right;
-  height: 250px;
+  height: 1450px;
   width: 350px;
   padding: 3px;
+  border: 2px solid black;
 }
 
 .infobox{
