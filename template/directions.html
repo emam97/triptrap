@@ -48,6 +48,10 @@
             <div> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </div>
             <div>{{ restraunt.types }}</div>
             <div class="g-plus" data-action="share" data-href= {{ restraunt.url }} ></div>
+            <div><a id="locationlat">{{ restraunt.latitude }}</a>
+              <a id="locationlon">{{ restraunt.longitude }}</a>
+              <button id="locbutton" onclick="destination()">Find Directions!</button>
+            </div>
             {% endfor %}
         <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
         <h1> {% for event in events %} </h1>

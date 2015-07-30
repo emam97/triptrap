@@ -3,11 +3,14 @@ var directionsService = new google.maps.DirectionsService();
 var map;
 var lat;
 var lon;
+var end_lat;
+var end_lon;
 var start;
 var end;
 var infowindow;
 var url;
 var url1;
+
 window.onload = function() {
   var startPos;
   map = new google.maps.Map(document.getElementById('map-canvas'), {
@@ -18,9 +21,14 @@ window.onload = function() {
     startPos = position;
     lat = startPos.coords.latitude;
     lon = startPos.coords.longitude;
-    console.log(lat, lon);
+    function destination()
+    {
+    end_lat = document.getElementById("locationlat");
+    end_lon = document.getElementById("locationlon");
+    console.log(end_lat, end_lon);
     start = new google.maps.LatLng(lat, lon);
-    end = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
+    end = new google.maps.LatLng(end_lat, end_lon);
+    }
     url = "/eventful?lat="+lat+"lon="+lon;
     console.log(url);
     $("#eventful").attr('href',url);
@@ -53,6 +61,11 @@ function calcRoute() {
       // "property."
       travelMode: google.maps.TravelMode[selectedMode]
   };
+  var marker = new google.maps.Marker({
+      position: start,
+      map: map,
+      title: 'You are here!'
+  });
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
