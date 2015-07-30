@@ -42,21 +42,19 @@
       <div class="infobox">
         {{ greeting }}
           <a id= "yelp"> <button type = "button" name="Yelp Results">Yelp</button></a>
-          <ul> {% for restraunt in restraunts%}
-            <br/><li> {{ restraunt.name }} </li>
-            <li> {{ restraunt.url }} </li>
-            <li> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </li>
-            <li>{{ restraunt.types }}</li>
+          <h1> {% for restraunt in restraunts%} </h1>
+            <h3> {{ restraunt.name }} </h3>
+            <a href= {{ restraunt.url }} > {{ restraunt.url }} </a>
+            <div> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </div>
+            <div>{{ restraunt.types }}</div>
             {% endfor %}
-          </ul>
         <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
-        <ul> {% for event in events %}
-          <li> {{ event.title }} </li>
-          <li> {{ event.venue }} </li>
-          <li> {{ event.city }}, {{ event.region }}, {{ event.country }} </li>
-          <li> {{ event.url }} </li>
+        <h1> {% for event in events %} </h1>
+          <h3> {{ event.title }} </h3>
+          <div> {{ event.venue }} </div>
+          <div> {{ event.city }}, {{ event.region }}, {{ event.country }} </div>
+          <a href= {{ event.url }} > {{ event.url }} </a>
           {% endfor %}
-        </ul>
       </div>
     </div>
     <div id="map-canvas"></div>

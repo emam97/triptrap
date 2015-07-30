@@ -42,3 +42,7 @@ body{
 button{
   font-family: 'Roboto', sans-serif;
 }
+
+h1,h2,h3,h4{
+  margin-bottom: 1px;
+}
