@@ -1,6 +1,6 @@
 .FixedHeightContainer{
   float:right;
-  height: 1450px;
+  height: 100%;
   width: 350px;
   padding: 3px;
   border: 2px solid black;
@@ -11,7 +11,7 @@
   overflow:auto;
   background-color: #ffffff;
   /*opacity:0.6;*/
-  filter:alpha(opacity=100);
+  filter: alpha(opacity=100);
 }
 
 #map-canvas{
