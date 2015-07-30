@@ -1,0 +1,30 @@
+img{
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+p{
+  width: 400px;
+  text-align: center;
+}
+div{
+  width: 425px;
+  padding: 10px;
+  border: 5px solid gray;
+  margin: 0;
+  border-style: ridge;
+  border-color:#0a88d0;
+  border-radius: 35px;
+}
+h1,h2,h3,h4{
+  text-align: center;
+}
+div{
+  display: inline-block;
+  vertical-align: text-top;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+  background-image: url('file:///Users/demouser/Desktop/triptrap1/triptrap/images/background.jpg');
+}
