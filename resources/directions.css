@@ -1,12 +1,13 @@
 .FixedHeightContainer{
   float:right;
-  height: 250px;
+  height: 100%;
   width: 350px;
   padding: 3px;
 }
 
 .infobox{
   margin:30px;
+  height:100%;
   overflow:auto;
   background-color: #ffffff;
   /*opacity:0.6;*/

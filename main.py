@@ -104,6 +104,8 @@ class Restraunt(ndb.Model):
     city = ndb.StringProperty()
     state = ndb.StringProperty()
     categories = ndb.StringProperty(repeated=True)
+    latitude = ndb.FloatProperty()
+    longitude = ndb.FloatProperty()
     types = ndb.StringProperty()
 
 # class Location(ndb.Model):
@@ -128,8 +130,10 @@ class YelpHandler(webapp2.RequestHandler):
             r.city = a['location']['display_address'][1]
             r.state = a['location']['display_address'][2]
             r.categories = a['categories'][0]
-            r.latitude = response['region']['center']['latitude']
-            r.longitude = response['region']['center']['longitude']
+            # r.latitude = response['region']['center']['latitude']
+            # r.longitude = response['region']['center']['longitude']
+            logging.info(r.city)
+            # logging.info(r.longitude)
             for b in range (0, len(r.categories)):
                 r.types = a['categories'][0][b]
                 break
@@ -158,13 +162,17 @@ class EventfulHandler(webapp2.RequestHandler):
         d= json.loads(s)
         elist = []
         x = d["events"]["event"]
+        logging.info(x)
         for a in range( 0, len(x)):
             e = Event()
             e.title = x[a]['title']
+            e.address = x[a]['venue_address']
             e.venue = x[a]['venue_name']
             e.city = x[a]['city_name']
             e.country = x[a]['country_abbr']
+            e.postal_code = x[a]['postal_code']
             e.url = x[a]['url']
+            e.description = x[a]['description']
             elist.append(e)
         template_vars = {
         'events' : elist
