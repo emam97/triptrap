@@ -27,6 +27,7 @@ window.onload = function() {
     url1 = "/yelp?lat="+lat+","+lon;
     console.log(url1);
     $("#yelp").attr('href',url1);
+    $("#hidden_lat").attr('value', (lat + "," + lon));
     initialize(start, end);
   };
   navigator.geolocation.getCurrentPosition(geoSuccess);

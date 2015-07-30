@@ -24,8 +24,27 @@
     <div class="FixedHeightContainer">
       <div class="infobox">
         {{ greeting }}
-          <a id= "yelp"> <button type = "button" name="Yelp Results">Yelp</button></a>
+        <a id= "yelp" href= ""></a>
+        <form action="/yelp" method="GET">
+          <div> What are you looking for?
+            <input type="text" name="term">
+          </div>
+          <input id="hidden_lat" type="hidden" name="lat" value="">
+          <input type="submit" value="Search!"/>
+        </form>
+          <h1> {% for restraunt in restraunts%} </h1>
+            <h3> {{ restraunt.name }} </h3>
+            <a href= {{ restraunt.url }} > {{ restraunt.url }} </a>
+            <div> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </div>
+            <div>{{ restraunt.types }}</div>
+            {% endfor %}
         <a id= "eventful"> <button type = "button" name="Eventful Results">Eventful</button></a>
+        <h1> {% for event in events %} </h1>
+          <h3> {{ event.title }} </h3>
+          <div> {{ event.venue }} </div>
+          <div> {{ event.city }}, {{ event.region }}, {{ event.country }} </div>
+          <a href= {{ event.url }} > {{ event.url }} </a>
+          {% endfor %}
       </div>
     </div>
     <div id="map-canvas"></div>

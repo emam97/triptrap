@@ -114,11 +114,11 @@ class Restraunt(ndb.Model):
 
 class YelpHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('template/places.html')
+        template = jinja2_environment.get_template('template/directions.html')
         rlist = []
         ll = self.request.get('lat')
-        logging.info(ll)
-        response = search('dinner', ll)
+        term = self.request.get('term')
+        response = search(term, ll)
         for i in range(0, len(response)):
             r = Restraunt()
             a = response['businesses'][i]
@@ -147,7 +147,7 @@ class Event(ndb.Model):
 
 class EventfulHandler(webapp2.RequestHandler):
     def get(self):
-        template = jinja2_environment.get_template('template/places.html')
+        template = jinja2_environment.get_template('template/directions.html')
         lat = self.request.get('lat')
         lon = self.request.get('lon')
         url = ('http://api.eventful.com/json/events/search?app_key=TpFKjZjQc76tZrpF&where=%s,%s&within=5-' % (lat,lon))
