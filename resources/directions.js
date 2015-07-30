@@ -3,6 +3,8 @@ var directionsService = new google.maps.DirectionsService();
 var map;
 var lat;
 var lon;
+var end_lat;
+var end_lon;
 var start;
 var end;
 var infowindow;
@@ -20,7 +22,7 @@ window.onload = function() {
     lon = startPos.coords.longitude;
     console.log(lat, lon);
     start = new google.maps.LatLng(lat, lon);
-    end = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
+    end = new google.maps.LatLng(end_lat, end_lon);
     url = "/eventful?lat="+lat+"lon="+lon;
     console.log(url);
     $("#eventful").attr('href',url);
@@ -53,6 +55,11 @@ function calcRoute() {
       // "property."
       travelMode: google.maps.TravelMode[selectedMode]
   };
+  var marker = new google.maps.Marker({
+      position: start,
+      map: map,
+      title: 'Hello World!'
+  });
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
