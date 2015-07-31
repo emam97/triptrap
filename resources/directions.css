@@ -8,6 +8,7 @@
 
 .infobox{
   margin:30px;
+  height:100%;
   overflow:auto;
   background-color: #ffffff;
   /*opacity:0.6;*/

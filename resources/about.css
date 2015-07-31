@@ -26,5 +26,5 @@ div{
 }
 body{
   font-family: 'Roboto', sans-serif;
-  background-image: url('file:///Users/demouser/Desktop/triptrap1/triptrap/images/background.jpg');
+  background-image: url('/images/background.jpg');
 }

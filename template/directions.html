@@ -9,14 +9,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src ="resources/directions.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-
   </head>
   <body>
     <div id="panel">
     <b>Mode of Travel: </b>
     <select id="mode" onchange="calcRoute();">
-      <option value="initial"></option>
+      <option value="Initial"></option>
       <option value="DRIVING">Driving</option>
       <option value="WALKING">Walking</option>
       <option value="BICYCLING">Bicycling</option>
@@ -44,9 +42,16 @@
             <button type="submit" value="Add to Itinerary">Add to Itinerary</button>
           </form>
             <h3> {{ restraunt.name }} </h3>
-            <a href= {{ restraunt.url }} > {{ restraunt.url }} </a>
+            <a href= {{ restraunt.url }}> {{ restraunt.url }} </a>
             <div> {{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }} </div>
             <div>{{ restraunt.types }}</div>
+            <div>
+              <!-- <input type="hidden" id="{{ restraunt.name }}lat" value = "{{ restraunt.latitude }}"></input>
+              <input type="hidden" id="{{ restraunt.name }}lon" value = '{{ restraunt.longitude }}'></input> -->
+              <!-- <input id="{{ restraunt.url }}" type="textbox" value="{{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }}">
+              <input type="button" onclick='calcRoute("{{ restraunt.url }}")'> -->
+              <button id="{{ restraunt.url }}" type = "button" value="{{ restraunt.address }}, {{ restraunt.city }}, {{ restraunt.state }}"
+                onclick='calcRoute("{{ restraunt.url }}")'>Find Directions!</button>
             <div class="g-plus" data-action="share" data-href= {{ restraunt.url }} ></div>
             <div><a id="locationlat">{{ restraunt.latitude }}</a>
               <a id="locationlon">{{ restraunt.longitude }}</a>
@@ -58,6 +63,16 @@
           <h3> {{ event.title }} </h3>
           <a href= {{ event.url }} > {{ event.url }} </a>
           <div> {{ event.venue }} </div>
+
+          <div> {{ event.address }}, {{ event.city }}, {{ event.region }}, {{ event.country }}, {{ event.postal_code }}</div>
+          <a href= {{ event.url }} > {{ event.url }} </a>
+          <div> {{ event.description }} </div>
+          <div>
+            <input id="{{ event.url }}" type="textbox" value="">
+            <input type="button" value = "Find Directions!" onclick='calcRoute("{{ event.url }}")'>
+            <!-- <button type = "button" value="{{ event.address }}, {{ event.city }}, {{ event.state }}, {{ event.postal_code }}"
+              onclick='calcRoute("{{ event.url }}")'>Find Directions!</button> -->
+          </div>
           <div> {{ event.city }}, {{ event.region }}, {{ event.country }} </div>
           <div class="g-plus" data-action="share"
             data-href= {{ event.url }} ></div>
