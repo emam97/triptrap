@@ -201,6 +201,7 @@ class Itinerary(ndb.Model):
     when = ndb.DateTimeProperty(required=True)
     thing = ndb.StringProperty(required=True)
     url = ndb.StringProperty(required=True)
+    spot = ndb.StringProperty(required=True)
     created_date = ndb.DateTimeProperty(required=True)
 
 class ItineraryHandler(webapp2.RequestHandler):
@@ -218,10 +219,11 @@ class ItineraryCreateHandler(webapp2.RequestHandler):
         when2 = self.request.get('calendar')
         thing = self.request.get('what')
         url = self.request.get('where')
+        spot = self.request.get('spot')
         modtime = time.strptime(when1+" "+when2 , "%H:%M %Y-%m-%d")
         dt = datetime2.fromtimestamp(time.mktime(modtime))
         current_date = datetime2.now()
-        event = Itinerary (thing=thing, when=dt, url=url, user=users.get_current_user().user_id())
+        event = Itinerary (thing=thing, when=dt, spot=spot, url=url, user=users.get_current_user().user_id())
         event.created_date = current_date
         event.put()
         self.response.write('Added to Itinerary')

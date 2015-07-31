@@ -54,6 +54,7 @@
                 <input type="date" name="calendar" value= ""/><br/>
                 <input type="text" name="what" placeholder= "What are you going to do?"/>
                 <input type="hidden" name="where" value= "{{ restraunt.url }}"></input>
+                <input type="hidden" name="spot" value= "{{ restraunt.name }}"></input>
                 <button type="submit" value="Add to Itinerary">Put it on my Itinerary!</button>
               </form>
             </div>
@@ -81,6 +82,7 @@
                 <input type="date" name="calendar" value= ""/><br/>
                 <input type="text" name="what" placeholder= "What are you going to do?"/>
                 <input type="hidden" name="where" value= "{{ event.url }}"></input>
+                <input type="hidden" name="spot" value= "{{ event.title }}"></input>
                 <button type="submit" value="Add to Itinerary">Put it on my Itinerary!</button>
               </form>
             </div>

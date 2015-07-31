@@ -12,7 +12,8 @@
     {% for event in events %}
     <div id="objects">
     What are we doing? {{ event.thing }} <br/>
-    When? {{ event.when}}
+    When? {{ event.when}}<br/>
+    Where? {{ event.spot}}<br/>
     <br/>
     <a href = {{ event.url }}> {{ event.url }} </a>
     <br/>
