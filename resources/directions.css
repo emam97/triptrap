@@ -12,15 +12,12 @@
   overflow:auto;
   background-color: #ffffff;
   /*opacity:0.6;*/
-<<<<<<< HEAD
   filter: alpha(opacity=100);
-=======
   filter:alpha(opacity=100);
   text-align: center;
 }
 .revealinfo{
   overflow: inherit;
->>>>>>> 33489771be02aa49e48dfc719a1330b058a51b1d
 }
 #map-canvas{
   border: 2px solid black;
