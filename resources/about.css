@@ -23,6 +23,7 @@ h1,h2,h3,h4{
 div{
   display: inline-block;
   vertical-align: text-top;
+  background-color: white;
 }
 body{
   font-family: 'Roboto', sans-serif;
