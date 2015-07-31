@@ -3,19 +3,22 @@
 
 
 <head>
-
+<link rel="stylesheet" type= "text/css" href="resources/itinerary.css"></link>
 </head>
 
 
 <body>
-  <h1>Today's Itinerary</h1>
+  <h1>Saved Itinerary</h1>
     {% for event in events %}
+    <div id="objects">
     What are we doing? {{ event.thing }} <br/>
     When? {{ event.when}}
     <br/>
     <a href = {{ event.url }}> {{ event.url }} </a>
     <br/>
     created on {{ event.created_date }}
+    <br/>
+    </div>
     <br/>
     {% endfor %}
     <br/>

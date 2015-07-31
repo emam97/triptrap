@@ -1,0 +1,16 @@
+html {
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  background-image: url('/images/background.jpg');
+}
+#objects{
+  border: 1px solid black;
+  width: 500px;
+  margin: auto;
+  padding: 10px;
+  background-color: #fff;
+}
+
+h1{
+  font-size: 500%;
+}
