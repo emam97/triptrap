@@ -68,7 +68,7 @@
           <a href= {{ event.url }} > {{ event.url }} </a>
           <div> {{ event.description }} </div>
           <div>
-            <input id="{{ event.url }}" type="textbox" value="">
+            <input id="{{ event.url }}" type="textbox" value="{{ event.address }}, {{ event.city }}, {{ event.region }}, {{ event.country }}, {{ event.postal_code }}">
             <input type="button" value = "Find Directions!" onclick='calcRoute("{{ event.url }}")'>
             <!-- <button type = "button" value="{{ event.address }}, {{ event.city }}, {{ event.state }}, {{ event.postal_code }}"
               onclick='calcRoute("{{ event.url }}")'>Find Directions!</button> -->
