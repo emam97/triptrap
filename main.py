@@ -197,9 +197,9 @@ class LoginHanlder(webapp2.RequestHandler):
             self.response.write(template.render(template_vars))
 
 class Itinerary(ndb.Model):
-    user = ndb.StringProperty(required=True)
+    user = ndb.StringProperty(required=False)
     when = ndb.DateTimeProperty(required=True)
-    thing = ndb.StructuredProperty(Event, repeated=True)
+    thing = ndb.StringProperty(required=True)
     url = ndb.StringProperty(required=True)
     created_date = ndb.DateTimeProperty(required=True)
 
