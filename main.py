@@ -205,7 +205,7 @@ class Itinerary(ndb.Model):
 
 class ItineraryHandler(webapp2.RequestHandler):
     def get(self):
-        query = Itinerary.query()
+        query = Itinerary.query(Itinerary.user==users.get_current_user().user_id())
         itinerary_data = query.fetch()
         logging.info(itinerary_data)
         template_vars = {"events" : itinerary_data}
@@ -221,7 +221,7 @@ class ItineraryCreateHandler(webapp2.RequestHandler):
         modtime = time.strptime(when1+" "+when2 , "%H:%M %Y-%m-%d")
         dt = datetime2.fromtimestamp(time.mktime(modtime))
         current_date = datetime2.now()
-        event = Itinerary (thing=thing, when=dt, url=url)
+        event = Itinerary (thing=thing, when=dt, url=url, user=users.get_current_user().user_id())
         event.created_date = current_date
         event.put()
         self.response.write('Added to Itinerary')
