@@ -46,13 +46,13 @@
                 onclick='calcRoute("{{ restraunt.url }}")'>Find Directions!</button>
             <div class="g-plus" data-action="share" data-href= {{ restraunt.url }} ></div>
             <div>
-              <button class="reveal" onclick="toggle_visibility('revealinfo')">Add to Itinerary?</button>
+              <button class="reveal" onclick="toggle_visibility('{{restraunt.url}}a')">Add to Itinerary?</button>
             </div>
-            <div id="revealinfo">
+            <div class="revealinfo" id="{{restraunt.url}}a">
               <form action="/itinerary/create" method="POST">
                 <input type="time" name="clock" value= ""/><br/>
                 <input type="date" name="calendar" value= ""/><br/>
-                <input type="text" name="what" value= "What are you going to do?"/>
+                <input type="text" name="what" placeholder= "What are you going to do?"/>
                 <input type="hidden" name="where" value= "{{ restraunt.url }}"></input>
                 <button type="submit" value="Add to Itinerary">Put it on my Itinerary!</button>
               </form>
@@ -74,14 +74,14 @@
           </div>
           <div class="g-plus" data-action="share"
             data-href= {{ event.url }} ></div>
-            <button class="reveal" onclick="toggle_visibility('revealinfo')">Add to Itinerary?</button>
-            <div id="revealinfo">
+            <button class="reveal" onclick="toggle_visibility('{{event.url}}a')">Add to Itinerary?</button>
+            <div class="revealinfo" id="{{event.url}}a">
               <form action="/itinerary/create" method="POST">
                 <input type="time" name="clock" value= ""/><br/>
                 <input type="date" name="calendar" value= ""/><br/>
-                <input type="text" name="what" value= "What are you going to do?"/>
+                <input type="text" name="what" placeholder= "What are you going to do?"/>
                 <input type="hidden" name="where" value= "{{ event.url }}"></input>
-                <button type="submit" value="Add to Itinerary">Add to Itinerary</button>
+                <button type="submit" value="Add to Itinerary">Put it on my Itinerary!</button>
               </form>
             </div>
           {% endfor %}
